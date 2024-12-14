@@ -8,6 +8,7 @@ import alura.ForumHub.domain.Usuario;
 import java.time.LocalDateTime;
 
 public record DadosListagemTopico(
+        Long id,
         String titulo,
         String mensagem,
         LocalDateTime data,
@@ -17,6 +18,7 @@ public record DadosListagemTopico(
 ) {
     public DadosListagemTopico(Topico topico){
         this(
+                topico.getId(),
                 topico.getTitulo(),
                 topico.getMensagem(),
                 topico.getDataCriacao(),
