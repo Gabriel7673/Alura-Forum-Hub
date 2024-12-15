@@ -1,9 +1,6 @@
 package alura.ForumHub.domain;
 
-import alura.ForumHub.dto.topico.DadosCadastroTopico;
 import jakarta.persistence.*;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -11,6 +8,8 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
+import alura.ForumHub.dto.topico.DadosAtualizacaoTopico;
 
 @Entity(name = "Topico")
 @Table(name = "topicos")
@@ -26,6 +25,7 @@ public class Topico {
 
     private String titulo;
 
+    @Column(columnDefinition = "TEXT")
     private String mensagem;
 
     @Column(name = "data_criacao")
@@ -42,7 +42,15 @@ public class Topico {
     @JoinColumn(name = "curso_id")
     private Curso curso;
 
-    @OneToMany(mappedBy = "topico", fetch = FetchType.LAZY)
+    // Excluir?
+    @OneToMany(mappedBy = "topico", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Resposta> respostas;
+
+    // public void atualizar(DadosAtualizacaoTopico dados) {
+    //     this.titulo = dados.titulo();
+    //     this.mensagem = dados.mensagem();
+    //     this.curso = dados.idCurso(); // Criar Service AtualizacaoDeTopico e cortar idAutor
+    // }
+
 
 }

@@ -20,18 +20,19 @@ public class Resposta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(columnDefinition = "TEXT")
     private String mensagem;
+
+    private LocalDateTime data;
+
+    private Boolean solucao;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "topico_id")
     private Topico topico;
 
-    private LocalDateTime data;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
-
-    private Boolean solucao;
 
 }

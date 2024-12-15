@@ -2,7 +2,7 @@ CREATE TABLE topicos(
 
     id BIGINT NOT NULL AUTO_INCREMENT,
     titulo VARCHAR(100) NOT NULL,
-    mensagem TEXT NOT NULL,
+    mensagem TEXT,
     data_criacao DATETIME NOT NULL,
     status_topico VARCHAR(100) NOT NULL,
     curso_id BIGINT NOT NULL,

@@ -3,7 +3,7 @@ CREATE TABLE respostas(
     id BIGINT NOT NULL AUTO_INCREMENT,
     mensagem TEXT NOT NULL,
     data_criacao DATETIME NOT NULL,
-    solucao TINYINT(1),
+    solucao BOOLEAN DEFAULT FALSE,
     topico_id BIGINT NOT NULL,
     usuario_id BIGINT NOT NULL,
 
