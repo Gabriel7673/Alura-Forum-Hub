@@ -6,6 +6,7 @@ import alura.ForumHub.dto.topico.DadosCadastroTopico;
 import alura.ForumHub.dto.topico.DadosDetalhamentoTopico;
 import alura.ForumHub.dto.topico.DadosListagemTopico;
 import alura.ForumHub.repository.TopicoRepository;
+import alura.ForumHub.service.topico.AtualizacaoDeTopico;
 import alura.ForumHub.service.topico.CriacaoDeTopico;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -30,6 +31,9 @@ public class TopicoController {
     @Autowired
     private CriacaoDeTopico criacaoDeTopico;
 
+    @Autowired
+    private AtualizacaoDeTopico atualizacaoDeTopico;
+
     @GetMapping
     public ResponseEntity<Page<DadosListagemTopico>> listar(
             @PageableDefault(sort = {"data"}) Pageable paginacao
@@ -49,25 +53,26 @@ public class TopicoController {
         return ResponseEntity.created(uri).body(new DadosDetalhamentoTopico(topico));
     }
 
-    @GetMapping("{/id}")
+    @GetMapping("/{id}")
     public ResponseEntity detalhar(@PathVariable Long id){
         var topico = topicoRepository.getReferenceById(id);
         return ResponseEntity.ok(new DadosDetalhamentoTopico(topico));
     }
 
-    @PutMapping("{/id}")
+    @PutMapping("/{id}")
     @Transactional
     public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizacaoTopico dados, @PathVariable Long id){
-        Optional<Topico> topicoExiste = topicoRepository.findById(id);
-        if (topicoExiste.isPresent()) {
-            var topico = topicoExiste.get();
-            //topico.atualizar(dados);
-            return ResponseEntity.ok(new DadosAtualizacaoTopico(topico.getTitulo(), topico.getMensagem(), topico.getAutor().getId(), topico.getCurso().getId()));
-        }
+        // Optional<Topico> topicoExiste = topicoRepository.findById(id);
+        // if (topicoExiste.isPresent()) {
+        //     var topico = topicoExiste.get();
+        //     //topico.atualizar(dados);
+        //     return ResponseEntity.ok(new DadosDetalhamentoTopico(topico));
+        // }
+        var topico = atualizacaoDeTopico.atualizarTopico(dados, id);
         return ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping("{/id}")
+    @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity excluir(@PathVariable Long id){
         Optional<Topico> topico = topicoRepository.findById(id);

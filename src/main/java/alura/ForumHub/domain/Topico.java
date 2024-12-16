@@ -46,11 +46,11 @@ public class Topico {
     @OneToMany(mappedBy = "topico", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Resposta> respostas;
 
-    // public void atualizar(DadosAtualizacaoTopico dados) {
-    //     this.titulo = dados.titulo();
-    //     this.mensagem = dados.mensagem();
-    //     this.curso = dados.idCurso(); // Criar Service AtualizacaoDeTopico e cortar idAutor
-    // }
+    public void atualizar(String titulo, String mensagem, Curso curso) {
+        this.titulo = titulo;
+        this.mensagem = mensagem;
+        this.curso = curso;
+    }
 
 
 }
