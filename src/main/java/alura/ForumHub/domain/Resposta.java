@@ -16,6 +16,7 @@ public class Resposta {
     @Column(columnDefinition = "TEXT")
     private String mensagem;
 
+    @Column(name = "data_criacao")
     private LocalDateTime data;
 
     private Boolean solucao;
