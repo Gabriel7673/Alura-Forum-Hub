@@ -1,17 +1,11 @@
 package alura.ForumHub.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+
+import java.util.Objects;
 
 @Entity(name = "Curso")
 @Table(name = "cursos")
-@Getter
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode(of = "id")
 public class Curso {
 
     @Id
@@ -25,4 +19,42 @@ public class Curso {
 
     @Column(name = "carga_horaria")
     private String cargaHoraria;
+
+    public Curso() {
+    }
+
+    public Curso(Long id, String nome, Categoria categoria, String cargaHoraria) {
+        this.id = id;
+        this.nome = nome;
+        this.categoria = categoria;
+        this.cargaHoraria = cargaHoraria;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public String getCargaHoraria() {
+        return cargaHoraria;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Curso curso = (Curso) o;
+        return Objects.equals(id, curso.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
 }

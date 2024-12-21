@@ -4,6 +4,8 @@ import alura.ForumHub.domain.Curso;
 import alura.ForumHub.domain.Status;
 import alura.ForumHub.domain.Topico;
 import alura.ForumHub.domain.Usuario;
+import alura.ForumHub.dto.curso.DadosListagemCurso;
+import alura.ForumHub.dto.usuario.DadosListagemUsuario;
 
 import java.time.LocalDateTime;
 
@@ -13,8 +15,8 @@ public record DadosListagemTopico(
         String mensagem,
         LocalDateTime data,
         Status status,
-        Usuario autor,
-        Curso curso
+        DadosListagemUsuario autor,
+        DadosListagemCurso curso
 ) {
     public DadosListagemTopico(Topico topico){
         this(
@@ -23,7 +25,7 @@ public record DadosListagemTopico(
                 topico.getMensagem(),
                 topico.getDataCriacao(),
                 topico.getStatus(),
-                topico.getAutor(),
-                topico.getCurso());
+                new DadosListagemUsuario(topico.getAutor()),
+                new DadosListagemCurso(topico.getCurso()));
     }
 }
