@@ -6,9 +6,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
-import alura.ForumHub.dto.topico.DadosAtualizacaoTopico;
-import jakarta.validation.constraints.NotNull;
-
 @Entity(name = "Topico")
 @Table(name = "topicos")
 

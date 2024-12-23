@@ -6,6 +6,7 @@ import alura.ForumHub.domain.Topico;
 import alura.ForumHub.domain.Usuario;
 import alura.ForumHub.dto.curso.DadosListagemCurso;
 import alura.ForumHub.dto.usuario.DadosListagemUsuario;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDateTime;
 
@@ -13,6 +14,7 @@ public record DadosListagemTopico(
         Long id,
         String titulo,
         String mensagem,
+        @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
         LocalDateTime data,
         Status status,
         DadosListagemUsuario autor,
