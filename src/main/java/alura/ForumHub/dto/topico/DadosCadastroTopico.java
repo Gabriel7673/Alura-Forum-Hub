@@ -10,10 +10,10 @@ public record DadosCadastroTopico(
         @NotBlank
         String mensagem,
 
-        @NotBlank
+        @NotNull
         Long idAutor,
 
-        @NotBlank
+        @NotNull
         Long idCurso
 ) {
 }

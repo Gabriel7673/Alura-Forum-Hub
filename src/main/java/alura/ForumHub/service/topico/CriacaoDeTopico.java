@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import alura.ForumHub.domain.Status;
 import alura.ForumHub.domain.Topico;
 import alura.ForumHub.domain.exception.ValidacaoException;
+import alura.ForumHub.domain.validadores.ValidadorTitulosEMensagensIguais;
 import alura.ForumHub.dto.topico.DadosCadastroTopico;
 import alura.ForumHub.repository.CursoRepository;
 import alura.ForumHub.repository.TopicoRepository;
@@ -24,6 +25,9 @@ public class CriacaoDeTopico {
     @Autowired
     private CursoRepository cursoRepository;
 
+    @Autowired
+    private ValidadorTitulosEMensagensIguais validador;
+
     public Topico criarTopico(DadosCadastroTopico dados){
         if (!usuarioRepository.existsById(dados.idAutor())) {
             throw new ValidacaoException("Usuário não existe");
@@ -31,6 +35,8 @@ public class CriacaoDeTopico {
         if (!cursoRepository.existsById(dados.idAutor())) {
             throw new ValidacaoException("Curso não existe");
         }
+
+        validador.validar(dados);
         
         var usuario = usuarioRepository.getReferenceById(dados.idAutor());
         var curso = cursoRepository.getReferenceById(dados.idCurso());

@@ -66,7 +66,6 @@ public class TopicoController {
         if (topicoExiste.isPresent()) {
             var topico = topicoExiste.get();
             topico = atualizacaoDeTopico.atualizarTopico(dados, id);
-            // topicoRepository.save || update ?
             return ResponseEntity.ok(new DadosDetalhamentoTopico(topico));
         }
         

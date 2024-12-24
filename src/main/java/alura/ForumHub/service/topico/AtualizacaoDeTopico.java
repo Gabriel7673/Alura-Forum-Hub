@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import alura.ForumHub.domain.Topico;
+import alura.ForumHub.domain.validadores.ValidadorTitulosEMensagensIguais;
 import alura.ForumHub.dto.topico.DadosAtualizacaoTopico;
 import alura.ForumHub.repository.CursoRepository;
 import alura.ForumHub.repository.TopicoRepository;
@@ -18,6 +19,9 @@ public class AtualizacaoDeTopico {
     @Autowired
     private CursoRepository cursoRepository;
 
+    @Autowired
+    private ValidadorTitulosEMensagensIguais validador;
+
     public Topico atualizarTopico(DadosAtualizacaoTopico dados, Long id){
         
         if (!topicoRepository.existsById(id)) {
@@ -28,8 +32,9 @@ public class AtualizacaoDeTopico {
             throw new ValidationException("Curso não existe");
         }
 
-        var topico = topicoRepository.getReferenceById(id);
+        validador.validar(dados);
 
+        var topico = topicoRepository.getReferenceById(id);
         var curso = cursoRepository.getReferenceById(dados.idCurso());
 
         topico.atualizar(dados.titulo(), dados.mensagem(), curso);
