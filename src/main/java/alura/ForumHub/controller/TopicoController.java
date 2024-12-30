@@ -62,6 +62,8 @@ public class TopicoController {
     @PutMapping("/{id}")
     @Transactional
     public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizacaoTopico dados, @PathVariable Long id){
+        // TODO: Testar a ocorrência de exceções
+        
         Optional<Topico> topicoExiste = topicoRepository.findById(id);
         if (topicoExiste.isPresent()) {
             var topico = topicoExiste.get();
