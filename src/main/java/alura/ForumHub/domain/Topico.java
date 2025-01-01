@@ -35,13 +35,13 @@ public class Topico {
     @JoinColumn(name = "curso_id")
     private Curso curso;
 
-    // Excluir?
     @OneToMany(mappedBy = "topico", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Resposta> respostas;
 
-    public void atualizar(String titulo, String mensagem, Curso curso) {
+    public void atualizar(String titulo, String mensagem, Usuario usuario, Curso curso) {
         this.titulo = titulo;
         this.mensagem = mensagem;
+        this.autor = usuario;
         this.curso = curso;
     }
 

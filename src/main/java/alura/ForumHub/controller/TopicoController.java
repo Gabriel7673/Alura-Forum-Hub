@@ -1,8 +1,7 @@
 package alura.ForumHub.controller;
 
 import alura.ForumHub.domain.Topico;
-import alura.ForumHub.dto.topico.DadosAtualizacaoTopico;
-import alura.ForumHub.dto.topico.DadosCadastroTopico;
+import alura.ForumHub.dto.topico.DadosCriacaoTopico;
 import alura.ForumHub.dto.topico.DadosDetalhamentoTopico;
 import alura.ForumHub.dto.topico.DadosListagemTopico;
 import alura.ForumHub.repository.TopicoRepository;
@@ -23,6 +22,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("topicos")
+//@SecurityRequirement(name = "bearer-token")
 public class TopicoController {
 
     @Autowired
@@ -44,7 +44,7 @@ public class TopicoController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity adicionar(@RequestBody @Valid DadosCadastroTopico dados, UriComponentsBuilder uriBuilder){
+    public ResponseEntity adicionar(@RequestBody @Valid DadosCriacaoTopico dados, UriComponentsBuilder uriBuilder){
         
         var topico = criacaoDeTopico.criarTopico(dados);
 
@@ -61,9 +61,7 @@ public class TopicoController {
 
     @PutMapping("/{id}")
     @Transactional
-    public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizacaoTopico dados, @PathVariable Long id){
-        // TODO: Testar a ocorrência de exceções
-        
+    public ResponseEntity atualizar(@RequestBody @Valid DadosCriacaoTopico dados, @PathVariable Long id){
         Optional<Topico> topicoExiste = topicoRepository.findById(id);
         if (topicoExiste.isPresent()) {
             var topico = topicoExiste.get();
@@ -79,7 +77,7 @@ public class TopicoController {
     public ResponseEntity excluir(@PathVariable Long id){
         Optional<Topico> topico = topicoRepository.findById(id);
         if (topico.isPresent()) {
-            topicoRepository.deleteById(id);    
+            topicoRepository.deleteById(id);
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.notFound().build();

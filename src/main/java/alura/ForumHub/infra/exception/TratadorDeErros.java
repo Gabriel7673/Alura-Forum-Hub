@@ -1,5 +1,6 @@
 package alura.ForumHub.infra.exception;
 
+import jakarta.validation.ValidationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import alura.ForumHub.domain.exception.ValidacaoException;
 import jakarta.persistence.EntityNotFoundException;
 
 @RestControllerAdvice
@@ -54,7 +54,7 @@ public class TratadorDeErros {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro: " +ex.getLocalizedMessage());
     }
 
-    @ExceptionHandler(ValidacaoException.class)
+    @ExceptionHandler(ValidationException.class)
     public ResponseEntity tratarErroRegraDeNegocio(Exception ex){
         return ResponseEntity.badRequest().body(ex.getMessage());
     }
