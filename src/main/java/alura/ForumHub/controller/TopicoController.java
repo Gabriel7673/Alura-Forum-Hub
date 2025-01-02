@@ -7,6 +7,7 @@ import alura.ForumHub.dto.topico.DadosListagemTopico;
 import alura.ForumHub.repository.TopicoRepository;
 import alura.ForumHub.service.topico.AtualizacaoDeTopico;
 import alura.ForumHub.service.topico.CriacaoDeTopico;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
@@ -22,7 +23,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("topicos")
-//@SecurityRequirement(name = "bearer-token")
+@SecurityRequirement(name = "bearer-token")
 public class TopicoController {
 
     @Autowired
